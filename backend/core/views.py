@@ -2,14 +2,22 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .serializer import UserSerializer
 from rest_framework.authtoken.models import Token
+from rest_framework import status
+from django.shortcuts import get_object_or_404
 
 from django.contrib.auth.models import User
 
-from rest_framework import status
 
 @api_view(["POST"])
 def login(request):
-    return Response({})
+  user = get_object_or_404(User, email = request.data['email'])
+  if not user.check_password(request.data['password']):
+    return Response({"error": "Invalid password"}, status=status.HTTP_400_BAD_REQUEST)
+   
+  token, create = Token.objects.get_or_create(user = user)
+  serializer = UserSerializer(instance = user)
+  
+  return Response({"token": token.key, "user": serializer.data}, status=status.HTTP_200_OK)
 
 
 @api_view(["POST"])
