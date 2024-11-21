@@ -1,0 +1,24 @@
+---
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+---
+
+<section class="w-full flex items-center justify-center h-screen">
+  <form class="flex items-center gap-2 flex-col">
+    <h1 class="text-2xl font-bold">Crear Cuenta</hjson>
+    <div class="">
+      <Label htmlFor="username">Username</Label>
+      <Input type="text" id="username" name="username" required />
+    </div>
+    <div class="">
+      <Label htmlFor="email">Email</Label>
+      <Input type="email" id="email" name="email" required />
+    </div>
+    <div class="">
+      <Label for="password">Password</Label>
+      <Input type="password" id="password" name="password" required />
+    </div>
+    <Button className="w-full"> Inciar sesión </Button>
+  </form>
+</section>
